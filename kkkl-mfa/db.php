@@ -10,12 +10,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 
-/*
-|--------------------------------------------------------------------------
-| SESSION TIMEOUT - 10 MINUTES
-|--------------------------------------------------------------------------
-*/
-
 $timeout_duration = 600;
 
 if (isset($_SESSION['LAST_ACTIVITY'])) {
@@ -46,22 +40,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-/*
-|--------------------------------------------------------------------------
-| AUTO REMOVE EXPIRED SEAT HOLDS
-|--------------------------------------------------------------------------
-*/
 
 $conn->query("
     DELETE FROM seat_holds
     WHERE hold_expiry < NOW()
 ");
 
-/*
-|--------------------------------------------------------------------------
-| AUTO MARK PAST BUS SCHEDULES AS UNAVAILABLE
-|--------------------------------------------------------------------------
-*/
 
 $conn->query("
     UPDATE bus_tickets
