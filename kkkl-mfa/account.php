@@ -1,5 +1,4 @@
 <?php
-// 1. Panggil db.php terlebih dahulu untuk elakkan ralat session conflict
 include 'db.php';
 
 if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
@@ -7,7 +6,6 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     exit();
 }
 
-// 2. Fungsi Masking untuk keselamatan PII ZAP Audit
 if (!function_exists('maskEmail')) {
     function maskEmail($email) {
         if (!$email || $email === '-') return '-';
