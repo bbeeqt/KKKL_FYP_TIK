@@ -20,7 +20,6 @@ $stmt->bind_param("i", $booking['ticket_id']);
 $stmt->execute();
 $ticket = $stmt->get_result()->fetch_assoc();
 
-// LOGIK PENGIRAAN MULTI-SEAT
 $seats_array = is_array($booking['seat']) ? $booking['seat'] : explode(',', $booking['seat']);
 $seat_count = count($seats_array);
 $seat_display = implode(', ', $seats_array);
@@ -30,7 +29,6 @@ $insurance_unit = ($booking['insurance'] == 'yes') ? 1.00 : 0.00;
 $insurance_total = $insurance_unit * $seat_count;
 $total_price = $ticket_total + $insurance_total;
 
-// Simpan total ke session untuk fasa OTP transaksi
 $_SESSION['temp_booking']['total_to_pay'] = $total_price;
 ?>
 
