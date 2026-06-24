@@ -55,7 +55,7 @@ if (isset($_POST['add_schedule'])) {
         $status = "unavailable";
     }
 
-    // 1. Validation Check: Same Bus Number & Status 'available'
+    
     if ($status === 'available') {
         $check_bus = $conn->prepare("SELECT id FROM bus_tickets WHERE bus_number = ? AND status = 'available'");
         $check_bus->bind_param("s", $bus_number);
@@ -65,7 +65,6 @@ if (isset($_POST['add_schedule'])) {
         }
     }
 
-    // 2. Validation Check: Complete duplicate combo (Bus, Date, Time)
     if (empty($error_message)) {
         $check_dup = $conn->prepare("SELECT id FROM bus_tickets WHERE bus_number = ? AND departure_date = ? AND departure_time = ?");
         $check_dup->bind_param("sss", $bus_number, $departure_date, $departure_time);
@@ -75,7 +74,6 @@ if (isset($_POST['add_schedule'])) {
         }
     }
 
-    // Process Insert if clear
     if (empty($error_message)) {
         $stmt = $conn->prepare("
             INSERT INTO bus_tickets
@@ -139,7 +137,6 @@ if (isset($_POST['update_schedule'])) {
         $status = "unavailable";
     }
 
-    // 1. Validation Check: Another row has this bus number as 'available'
     if ($status === 'available') {
         $check_bus = $conn->prepare("SELECT id FROM bus_tickets WHERE bus_number = ? AND status = 'available' AND id != ?");
         $check_bus->bind_param("si", $bus_number, $id);
@@ -149,7 +146,6 @@ if (isset($_POST['update_schedule'])) {
         }
     }
 
-    // 2. Validation Check: Another row matches this complete pattern combo
     if (empty($error_message)) {
         $check_dup = $conn->prepare("SELECT id FROM bus_tickets WHERE bus_number = ? AND departure_date = ? AND departure_time = ? AND id != ?");
         $check_dup->bind_param("sssi", $bus_number, $departure_date, $departure_time, $id);
@@ -159,7 +155,6 @@ if (isset($_POST['update_schedule'])) {
         }
     }
 
-    // Process Update if clear
     if (empty($error_message)) {
         $stmt = $conn->prepare("
             UPDATE bus_tickets
