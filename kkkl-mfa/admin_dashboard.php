@@ -6,11 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/*
-|--------------------------------------------------------------------------
-| ADMIN SECURITY
-|--------------------------------------------------------------------------
-*/
+
 
 if (
     !isset($_SESSION['authenticated']) ||
@@ -31,10 +27,7 @@ if (
 }
 
 /*
-|--------------------------------------------------------------------------
-| GET STATS
-|--------------------------------------------------------------------------
-*/
+
 
 $total_users =
 $conn->query("
@@ -75,7 +68,6 @@ rel="stylesheet">
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
 
     <aside class="w-64 bg-[#bc0000] text-white p-6">
 
@@ -131,7 +123,6 @@ rel="stylesheet">
 
     </aside>
 
-    <!-- CONTENT -->
 
     <main class="flex-1 p-10">
 
